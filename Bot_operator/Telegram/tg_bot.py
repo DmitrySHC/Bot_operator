@@ -29,7 +29,7 @@ def text(update: Update, context: CallbackContext):
     try:
         if operator.state in ('new_order', 'payment'):
             operator.change_order(operator.state, text_received.lower())
-        valid_trigger(text_received.lower())
+        valid_trigger(text_received)
         operator.change_phrase(operator.state)
     except:
         if operator.state in ('new_order', 'payment'):
@@ -49,7 +49,7 @@ def main():
     TOKEN = '2119617790:AAEDEYMqdpaSSjveKv7ytj7xRb2Mf5beb14'
     updater = Updater(token=TOKEN)
     dispatcher = updater.dispatcher
-    updater.start_polling()
+
 
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
@@ -59,6 +59,9 @@ def main():
 
     text_handler = MessageHandler(Filters.text, text)
     dispatcher.add_handler(text_handler)
+
+    updater.start_polling()
+    updater.idle()
 
 
 if __name__ == '__main__':

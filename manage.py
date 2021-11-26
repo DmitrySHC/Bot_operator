@@ -1,8 +1,8 @@
 import sys
-from Bot_operator.Facebook import fb_bot
-from Bot_operator.Skype import skype_bot
-from Bot_operator.Telegram import tg_bot
-from Bot_operator.VK import vk_bot
+from Bot_operator.Facebook.fb_bot import main as fb_bot
+from Bot_operator.Skype.skype_bot import main as skype_bot
+from Bot_operator.Telegram.tg_bot import main as tg_bot
+from Bot_operator.VK.vk_bot import main as vk_bot
 
 
 '''
@@ -16,9 +16,15 @@ Enter in command line:
 
 
 def main():
-   pass
+    commands = {
+        'fb': fb_bot,
+        'skype': skype_bot,
+        'tg': tg_bot,
+        'vk': vk_bot,
+    }
+    bot_type = sys.argv[1]
+    commands[bot_type]()
 
 
 if __name__ == '__main__':
     main()
-

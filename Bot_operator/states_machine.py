@@ -18,7 +18,7 @@ VALID_TRIGGERS = {
     'pay': ['наличкой', 'наличными', 'картой', 'по карте'],
     'Y_conf': ['да', '+'],
     'N_conf': ['нет', '-'],
-    'edit_size': ['размер', 'размер пиццы'],
+    'edit_size': ['размер', 'размер пиццы', 'пиццу'],
     'edit_pay': ['способ оплаты', 'способ', 'оплату'],
 }
 
@@ -28,7 +28,7 @@ machine = Machine(model=operator, states=STATES, transitions=TRANSITIONS, initia
 
 def valid_trigger(word):
     for trigger, words in VALID_TRIGGERS.items():
-        if word in words:
+        if word.lower() in words:
             operator.trigger(trigger)
             break
     else:

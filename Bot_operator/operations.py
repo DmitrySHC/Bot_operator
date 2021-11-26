@@ -20,4 +20,4 @@ class Operator:
             self.current_phrase = self.operator_phrases[state]
 
     def change_order(self, state, content):
-        self.current_order[state] = content
+        self.current_order[state] = content.lower()
