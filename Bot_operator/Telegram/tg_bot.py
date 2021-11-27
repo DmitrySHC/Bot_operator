@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import Updater, CallbackContext, CommandHandler, MessageHandler, Filters
-from Bot_operator.states_machine import operator, valid_trigger, machine
+from Bot_operator.dialogs import answer_to, initial_phrase
 
 
 def start(update: Update, context: CallbackContext):
@@ -11,36 +11,23 @@ def start(update: Update, context: CallbackContext):
     )
     context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text=machine.get_model_state(operator).say()
+        text=initial_phrase()
     )
 
 
 def new(update: Update, context: CallbackContext):
-    operator.to_new_order()
     context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text=machine.get_model_state(operator).say()
+        text=initial_phrase()
     )
 
 
 def text(update: Update, context: CallbackContext):
     text_received = update.message.text
-    try:
-        if operator.state in ('new_order', 'payment'):
-            operator.change_order(operator.state, text_received)
-        valid_trigger(text_received)
-    except:
-        if operator.state in ('new_order', 'payment'):
-            operator.change_order(operator.state, '')
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text='Возможно вы ошиблись при вводе, повторите попытку.'
-        )
-    else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=machine.get_model_state(operator).say()
-        )
+    context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=answer_to(text=text_received)
+    )
 
 
 def main():
