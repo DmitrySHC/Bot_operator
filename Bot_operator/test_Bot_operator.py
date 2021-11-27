@@ -22,18 +22,17 @@ class TestDialog(unittest.TestCase):
         self.assertEqual(answer_to('да'), 'Спасибо за заказ!')
 
     # standard dialog step by step
-    # def test_valid_A(self):
-    #     operator.to_new_order()
-    #     self.assertEqual(machine.get_model_state(operator).say(), 'Какую вы хотите пиццу? Большую или маленькую?')
-    #
-    # def test_valid_B(self):
-    #     self.assertEqual(answer_to('Большую'), 'Как вы будете платить? Картой или наличными?')
-    #
-    # def test_valid_C(self):
-    #     self.assertEqual(answer_to('Наличкой'), 'Вы хотите большую пиццу, оплата - наличкой?')
-    #
-    # def test_valid_D(self):
-    #     self.assertEqual(answer_to('Да'), 'Спасибо за заказ!')
+    def test_valid_A(self):
+        self.assertEqual(initial_phrase(), 'Какую вы хотите пиццу? Большую или маленькую?')
+
+    def test_valid_B(self):
+        self.assertEqual(answer_to('Большую'), 'Как вы будете платить? Картой или наличными?')
+
+    def test_valid_C(self):
+        self.assertEqual(answer_to('Наличкой'), 'Вы хотите большую пиццу, оплата - наличкой?')
+
+    def test_valid_D(self):
+        self.assertEqual(answer_to('Да'), 'Спасибо за заказ!')
 
     # dialog with wrong answer from client on each step
     def test_valid_dialog_with_wrong_answer(self):
