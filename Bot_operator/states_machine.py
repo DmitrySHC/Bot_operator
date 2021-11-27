@@ -1,8 +1,6 @@
-from transitions import Machine
+from transitions import Machine, State
 from Bot_operator.operations import Operator
 
-
-STATES = ['new_order', 'payment', 'confirmation', 'edit', 'complete']
 
 TRANSITIONS = [
     {'trigger': 'size', 'source': 'new_order', 'dest': 'payment'},
@@ -21,6 +19,45 @@ VALID_TRIGGERS = {
     'edit_size': ['размер', 'размер пиццы', 'пиццу'],
     'edit_pay': ['способ оплаты', 'способ', 'оплату'],
 }
+
+
+class StateOrder(State):
+    def say(self):
+        return 'Какую вы хотите пиццу? Большую или маленькую?'
+
+
+class StatePay(State):
+    def say(self):
+        return 'Как вы будете платить? Картой или наличными?'
+
+
+class StateConfirm(State):
+    def say(self):
+        current_phrase = 'Вы хотите {} пиццу, оплата - {}?'.format(
+            operator.current_order['new_order'],
+            operator.current_order['payment']
+        )
+        return current_phrase
+
+
+class StateEdit(State):
+    def say(self):
+        return 'Что вы хотите изменить? Размер пиццы или способ оплаты?'
+
+
+class StateComplete(State):
+    def say(self):
+        return 'Спасибо за заказ!'
+
+
+STATES = [
+    StateOrder(name='new_order'),
+    StatePay(name='payment'),
+    StateConfirm(name='confirmation'),
+    StateEdit(name='edit'),
+    StateComplete(name='complete'),
+]
+
 
 operator = Operator()
 machine = Machine(model=operator, states=STATES, transitions=TRANSITIONS, initial='new_order')

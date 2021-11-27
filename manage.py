@@ -9,9 +9,9 @@ from Bot_operator.VK.vk_bot import main as vk_bot
 Choose bot type.
 Enter in command line: 
 'python manage.py fb' to run facebook bot
-'python manage.py skype' to skype bot
-'python manage.py tg' to telegram bot
-'python manage.py vk' to vkontakte bot
+'python manage.py skype' to run skype bot
+'python manage.py tg' to run telegram bot
+'python manage.py vk' to run vkontakte bot
 '''
 
 

@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import Updater, CallbackContext, CommandHandler, MessageHandler, Filters
-from Bot_operator.states_machine import operator, valid_trigger
+from Bot_operator.states_machine import operator, valid_trigger, machine
 
 
 def start(update: Update, context: CallbackContext):
@@ -11,16 +11,15 @@ def start(update: Update, context: CallbackContext):
     )
     context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text=operator.current_phrase
+        text=machine.get_model_state(operator).say()
     )
 
 
 def new(update: Update, context: CallbackContext):
     operator.to_new_order()
-    operator.change_phrase(operator.state)
     context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text=operator.current_phrase
+        text=machine.get_model_state(operator).say()
     )
 
 
@@ -28,9 +27,8 @@ def text(update: Update, context: CallbackContext):
     text_received = update.message.text
     try:
         if operator.state in ('new_order', 'payment'):
-            operator.change_order(operator.state, text_received.lower())
+            operator.change_order(operator.state, text_received)
         valid_trigger(text_received)
-        operator.change_phrase(operator.state)
     except:
         if operator.state in ('new_order', 'payment'):
             operator.change_order(operator.state, '')
@@ -41,7 +39,7 @@ def text(update: Update, context: CallbackContext):
     else:
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=operator.current_phrase
+            text=machine.get_model_state(operator).say()
         )
 
 
