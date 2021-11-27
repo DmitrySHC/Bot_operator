@@ -48,7 +48,6 @@ def main():
     updater = Updater(token=TOKEN)
     dispatcher = updater.dispatcher
 
-
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
 
