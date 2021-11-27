@@ -1,5 +1,5 @@
 from transitions import Machine, State
-from Bot_operator.operations import Operator
+from Bot_operator.operators import Operator
 
 
 TRANSITIONS = [
