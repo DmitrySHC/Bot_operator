@@ -1,9 +1,11 @@
-##Bot_operator
-#### Bot use state machine https://github.com/pytransitions/transitions
+#Bot_operator
+
+### Bot use state machine https://github.com/pytransitions/transitions
 
 ----
 
-####Instuction:
+###Instuction:
+
 1. First you have to install packages. Enter in command line:
 >pip install -r requirements.txt
 
